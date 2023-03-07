@@ -1,15 +1,20 @@
 {block content}
-	<h1>Můj blog</h1>
 
-	{foreach $posts as $post}
-	<div class="post">
-		<div class="date">{$post->created_at|date:'F j, Y'}</div>
+<h1>Můj blog</h1></div>
 
-		<h2>{$post->title}</h2>
+	{if $posts}
+		{foreach $posts as $post}
+			<div class="post">
+				<div class="date">{$post->created_at|date:'F j, Y'}</div>
 
-		<div>{$post->content|truncate:256}</div>
-	</div>
-	{/foreach}
-	<a n:href="Edit:create">Napsat nový příspěvek</a>
+				<h2>{$post->title}</h2>
+
+				<div>{$post->content|truncate:256}</div>
+			</div>
+		{/foreach}
+	{else}
+		<p>Žádné příspěvky.</p>
+	{/if}
+
 	<a n:href="Edit:create" n:if="$user->isLoggedIn()">Vytvořit příspěvek</a>
 {/block}
