@@ -1,13 +1,20 @@
 {block content}
 
-<h1>Můj blog</h1></div>
 
+{* style menu *}
+<style>
+
+</style>
+
+{* menu *}
+
+<h1>Můj blog</h1></div>
 	{if $posts}
 		{foreach $posts as $post}
 			<div class="post">
 				<div class="date">{$post->created_at|date:'F j, Y'}</div>
 
-				<h2>{$post->title}</h2>
+			<h2><a href="{link Post:show $post->id}">{$post->title}</a></h2> 
 
 				<div>{$post->content|truncate:256}</div>
 			</div>
