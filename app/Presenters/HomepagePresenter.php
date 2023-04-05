@@ -15,6 +15,6 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
 	{
 		$this->template->posts = $this->facade
 			->getPublicArticles()
-			->limit(5);
+			->limit(6);
 	}
 }

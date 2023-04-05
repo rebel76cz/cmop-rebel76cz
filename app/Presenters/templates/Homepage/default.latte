@@ -20,20 +20,99 @@ h1{
 
 {* menu *}
 
-<h1>ŠkodaRada</h1></div>
+<h1>ŠkodaRada</h1>
+
 	{if $posts}
 		{foreach $posts as $post}
-			<div class="post">
-				<div class="date">{$post->created_at|date:'F j, Y'}</div>
+			
 
 			<h2><a href="{link Post:show $post->id}">{$post->title}</a></h2> 
 
 				<div>{$post->content|truncate:256}</div>
-			</div>
+		</div>
+
+	<div class="post">
+	
+				<div class="date">{$post->created_at|date:'F j, Y'}</div>
 		{/foreach}
 	{else}
 		<p>Žádné příspěvky.</p>
 	{/if}
 
 	<a n:href="Edit:create" n:if="$user->isLoggedIn()">Vytvořit příspěvek</a>
+
+	<style>
+body {
+			background-color: white;
+			color: green;
+			font-family: Arial, sans-serif;
+			margin: 0;
+			padding: 0;
+		}
+
+		h1 {
+			font-size: 3em;
+			font-weight: bold;
+			text-align: center;
+			margin: 0.5em 0;
+		}
+
+		h2 {
+			font-size: 2em;
+			font-weight: bold;
+			margin: 1em 0;
+		}
+
+		p {
+			font-size: 1.2em;
+			line-height: 1.5;
+			margin: 0.5em 0;
+		}
+
+		.post {
+			margin: 2em 0;
+			padding: 1em;
+			background-color: #f0f0f0;
+			border-radius: 5px;
+			box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+		}
+
+		.post a {
+			color: green;
+			font-weight: bold;
+			text-decoration: none;
+		}
+
+		.post a:hover {
+			text-decoration: underline;
+		}
+
+		.date {
+			font-size: 1em;
+			font-style: italic;
+			text-align: right;
+			margin-top: 1em;
+		}
+
+		.button {
+			display: inline-block;
+			padding: 0.5em 1em;
+			background-color: green;
+			color: white;
+			font-weight: bold;
+			text-decoration: none;
+			border-radius: 5px;
+			box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+			margin-top: 1em;
+		}
+
+		.button:hover {
+			background-color: #006400;
+			cursor: pointer;
+		}
+</style>
+
+
+
 {/block}
+
