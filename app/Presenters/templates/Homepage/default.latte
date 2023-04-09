@@ -1,118 +1,181 @@
 {block content}
 
+  <body>
+    <header class="header">
+      <h1 class="header__title">ŠkodaRada</h1>
+    </header>
 
-{* style menu *}
+    <div class="container">
+      {if $posts}
+        {foreach $posts as $post}
+          <div class="post">
+            <h2 class="post__title"><a href="{link Post:show $post->id}">{$post->title}</a></h2>
+            <p class="post__content">{$post->content|truncate:256}</p>
+            <div class="post__date">{$post->created_at|date:'F j, Y'}</div>
+          </div>
+        {/foreach}
+      {else}
+        <p class="no-posts">Žádné příspěvky.</p>
+      {/if}
+    </div>
+
+
+<footer>
+  <nav>
+    <ul>
+      <li><a class="create-post-btn" n:href="Edit:create" n:if="$user->isLoggedIn()">Vytvořit příspěvek</a></li>
+      <li><a class="create-post-btn" n:href="Sign:in" n:if="$user->isLoggedIn() === false">Přihlásit se</a></li>
+	  <li><a class="create-post-btn" n:href="Sign:out" n:if="$user->isLoggedIn()">Odhlásit se</a></li>
+    </ul>
+  </nav>
+
+</footer>
+
+  </body>
+
+</html>
+
 <style>
-h1{
-	font-size: 50px;
-	font-family: 'Roboto', sans-serif;
-	font-weight: 300;
-	color: #fff;
-	text-align: center;
-	margin: 0;
-	padding: 0;
-	padding-top: 20px;
-	padding-bottom: 20px;
-	background-color: #000;
-	text-shadow: 1px 1px 1px #000;
+  body {
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+
+  .header {
+    background-color: #007f3f;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.3);
+  }
+
+  .header__title {
+    font-size: 36px;
+    margin: 0;
+  }
+
+  .container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+
+  .post {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    padding: 20px;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.3);
+    transition: box-shadow 0.3s ease-in-out;
+  }
+
+  .post:hover {
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.5);
+  }
+
+  .post__title {
+    font-size: 28px;
+    margin-top: 0;
+    margin-bottom: 10px;
+  }
+
+  .post__content {
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-size: 18px;
+    line-height: 1.5;
+  }
+
+  .post__date {
+    color: #999;
+    font-size: 14px;
+  }
+
+  .create-post-btn {
+    display: block;
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #007f3f;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 5px;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.3);
+    transition: background-color 0.3s ease-in-out;
+  }
+
+  .create-post-btn:hover {
+    background-color: #005b2e;
+  }
+
+  .no-posts {
+    font-size: 24px;
+    text-align: center;
+    margin-top: 50px;
+  }
+
+  footer {
+  background-color: #007f3f;
+  color: white;
+  padding: 30px 0;
 }
-</style>
 
-{* menu *}
+nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
 
-<h1>ŠkodaRada</h1>
+nav li {
+  display: inline-block;
+  margin-right: 20px;
+}
 
-	{if $posts}
-		{foreach $posts as $post}
-			
+nav a {
+  color: white;
+  text-decoration: none;
+  font-size: 16px;
+  transition: all 0.3s ease;
+}
 
-			<h2><a href="{link Post:show $post->id}">{$post->title}</a></h2> 
+nav a:hover {
+  text-decoration: underline;
+}
 
-				<div>{$post->content|truncate:256}</div>
-		</div>
+.contact-info p {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
 
-	<div class="post">
-	
-				<div class="date">{$post->created_at|date:'F j, Y'}</div>
-		{/foreach}
-	{else}
-		<p>Žádné příspěvky.</p>
-	{/if}
+.contact-info li {
+  margin-bottom: 5px;
+}
 
-	<a n:href="Edit:create" n:if="$user->isLoggedIn()">Vytvořit příspěvek</a>
+.social-media p {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
 
-	<style>
-body {
-			background-color: white;
-			color: green;
-			font-family: Arial, sans-serif;
-			margin: 0;
-			padding: 0;
-		}
+.social-media ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
 
-		h1 {
-			font-size: 3em;
-			font-weight: bold;
-			text-align: center;
-			margin: 0.5em 0;
-		}
+.social-media li {
+  display: inline-block;
+  margin-right: 10px;
+}
 
-		h2 {
-			font-size: 2em;
-			font-weight: bold;
-			margin: 1em 0;
-		}
+.social-media i {
+  font-size: 20px;
+  color: white;
+  transition: all 0.3s ease;
+}
 
-		p {
-			font-size: 1.2em;
-			line-height: 1.5;
-			margin: 0.5em 0;
-		}
-
-		.post {
-			margin: 2em 0;
-			padding: 1em;
-			background-color: #f0f0f0;
-			border-radius: 5px;
-			box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
-		}
-
-		.post a {
-			color: green;
-			font-weight: bold;
-			text-decoration: none;
-		}
-
-		.post a:hover {
-			text-decoration: underline;
-		}
-
-		.date {
-			font-size: 1em;
-			font-style: italic;
-			text-align: right;
-			margin-top: 1em;
-		}
-
-		.button {
-			display: inline-block;
-			padding: 0.5em 1em;
-			background-color: green;
-			color: white;
-			font-weight: bold;
-			text-decoration: none;
-			border-radius: 5px;
-			box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
-			margin-top: 1em;
-		}
-
-		.button:hover {
-			background-color: #006400;
-			cursor: pointer;
-		}
-</style>
-
-
-
-{/block}
-
+.social-media i:hover {
+  transform: scale(1.1);
+}
+  </style>
+  {/block}
