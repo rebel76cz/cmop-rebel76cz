@@ -2,149 +2,79 @@
 
 <p><a n:href="Homepage:default">← zpět na výpis příspěvků</a></p>
 
-<div class="date">{$post->created_at|date:'F j, Y'}</div>
+<div class="container">
 
-<h1 n:block="title">{$post->title}</h1>
-
-<div class="post">{$post->content}</div>
-
-<h2>Vložte nový příspěvek</h2>
-
-{control commentForm}
-
-<h2>Komentáře</h2>
-
-
-<div class="comments">
-	{foreach $comments as $comment}
-		<p><b><a href="mailto:{$comment->email}" n:tag-if="$comment->email">
-			{$comment->name}
-		</a></b> napsal:</p>
-
-		<div>{$comment->content}</div>
-	{/foreach}
-<a n:href="Edit:edit $post->id">Upravit příspěvek</a>
-
+  <div class="post">
+    <div class="date">{$post->created_at|date:'F j, Y'}</div>
+    <h1 n:block="title">{$post->title}</h1>
+    <div>{$post->content}</div>
+    <h2>Vložte nový příspěvek</h2>
+    {control commentForm}
+    <h2>Komentáře</h2>
+    <div class="comments">
+      {foreach $comments as $comment}
+        <p><b><a href="mailto:{$comment->email}" n:tag-if="$comment->email">
+          {$comment->name}
+        </a></b> napsal:</p>
+        <div>{$comment->content}</div>
+      {/foreach}
+      <a n:href="Edit:edit $post->id">Upravit příspěvek</a>
+    </div>
+  </div>
 
 </div>
-<style>
-/* Reset */
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
 
-/* Global styles */
+<style>
 body {
-  font-family: 'Roboto', sans-serif;
+  background: #f9f9f9;
+  background-image: linear-gradient(to bottom right, #f9f9f9, #e6e6e6);
+  font-family: Arial, sans-serif;
   font-size: 16px;
   line-height: 1.5;
   color: #333;
-  background-color: #f9f9f9;
-}
-
-a {
-  color: #0077cc;
-  text-decoration: none;
-}
-
-a:hover {
-  text-decoration: underline;
 }
 
 .container {
   max-width: 800px;
   margin: 0 auto;
-  padding: 20px;
+  padding: 60px 20px;
+  text-align: center;
 }
 
-.date {
-  font-size: 14px;
-  color: #777;
-  margin-bottom: 10px;
+h1 {
+  font-size: 48px;
+  font-weight: bold;
+  margin-bottom: 50px;
+  color: #0077cc;
 }
 
 .post {
-  margin-top: 20px;
-  padding: 20px;
+  margin-top: 50px;
+  padding: 40px;
   background-color: #fff;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  text-align: left;
 }
 
 .comments {
-  margin-top: 20px;
+  margin-top: 50px;
 }
 
 .comments p {
   font-weight: bold;
-  margin-bottom: 5px;
+  margin-bottom: 10px;
+  color: #0077cc;
 }
 
 .comments div {
-  margin-bottom: 10px;
-}
-
-h1 {
-  font-size: 36px;
-  font-weight: 700;
   margin-bottom: 20px;
-  color: #333;
-}
-
-h2 {
-  font-size: 24px;
-  font-weight: 700;
-  margin-bottom: 20px;
-  color: #333;
 }
 
 input[type="text"], input[type="email"], textarea {
   width: 100%;
-  padding: 10px;
+  padding: 20px;
   font-size: 16px;
   line-height: 1.5;
   border: none;
-  border-radius: 4px;
-  background-color: #f5f5f5;
-  margin-bottom: 10px;
-}
-
-input[type="submit"] {
-  background-color: #0077cc;
-  color: #fff;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 4px;
-  font-size: 16px;
-  cursor: pointer;
-  transition: background-color 0.2s ease-in-out;
-}
-
-input[type="submit"]:hover {
-  background-color: #005ea3;
-}
-
-/* Responsive styles */
-@media only screen and (max-width: 767px) {
-  h1 {
-    font-size: 24px;
-  }
-  
-  h2 {
-    font-size: 20px;
-  }
-  
-  input[type="text"], input[type="email"], textarea {
-    font-size: 14px;
-  }
-  
-  input[type="submit"] {
-    font-size: 14px;
-  }
-}
 </style>
-
-
-{/block content}
-
