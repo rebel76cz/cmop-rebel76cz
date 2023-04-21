@@ -3,68 +3,85 @@ namespace App\Presenters;
 
 use Nette;
 use Nette\Application\UI\Form;
+use App\Model\CommentManager;
 
 final class PostPresenter extends Nette\Application\UI\Presenter
 {
     private Nette\Database\Explorer $database;
+    private CommentManager $commentManager;
 
-    public function __construct(Nette\Database\Explorer $database)
+    public function __construct(Nette\Database\Explorer $database, CommentManager $commentManager)
     {
         $this->database = $database;
+        $this->commentManager = $commentManager;
     }
 
+	public function renderShow(int $postId): void
+	{
+		$post = $this->database
+			->table('posts')
+			->get($postId);
+		if (!$post) {
+			$this->error('Stránka nebyla nalezena');
+		}
+	
+		$this->template->post = $post;
+		$this->template->comments = $this->commentManager->getCommentsByPostId($postId);
+	}
+	
 
-    public function renderShow(int $postId): void
-{
-    $post = $this->database
-        ->table('posts')
-        ->get($postId);
-    if (!$post) {
-        $this->error('Stránka nebyla nalezena');
+    protected function createComponentCommentForm(): Form
+    {
+        $form = new Form; 
+
+        $form->addText('name', 'Jméno:')
+            ->setRequired();
+
+        $form->addEmail('email', 'E-mail:');
+
+        $form->addTextArea('content', 'Komentář:')
+            ->setRequired();
+
+        $form->addSubmit('send', 'Publikovat komentář');
+
+        $form->onSuccess[] = [$this, 'commentFormSucceeded'];
+
+        return $form;
     }
 
-    $this->template->post = $post;
-    $this->template->comments = $post->related('comments')->order('created_at');
-}
+    public function commentFormSucceeded(\stdClass $data): void
+    {
+        $postId = $this->getParameter('postId');
 
+        $this->database->table('comments')->insert([
+            'post_id' => $postId,
+            'name' => $data->name,
+            'email' => $data->email,
+            'content' => $data->content,
+        ]);
 
-protected function createComponentCommentForm(): Form
+        $this->flashMessage('Děkuji za komentář', 'success');
+        $this->redirect('this');
+    }
+
+    public function handleDeleteComment(int $id): void
+    {
+        $comment = $this->database->table('comments')->get($id);
+
+        if (!$comment) {
+            $this->error('Komentář nebyl nalezen');
+        }
+
+        $comment->delete();
+
+        $this->flashMessage('Komentář byl smazán.');
+        $this->redirect('this');
+    }
+	public function actionDeleteComment(int $id): void
 {
-	$form = new Form; 
-
-	$form->addText('name', 'Jméno:')
-		->setRequired();
-
-	$form->addEmail('email', 'E-mail:');
-
-	$form->addTextArea('content', 'Komentář:')
-		->setRequired();
-
-	$form->addSubmit('send', 'Publikovat komentář');
-
-    $form->onSuccess[] = [$this, 'commentFormSucceeded'];
-
-	return $form;
+    $this->commentManager->deleteComment($id);
+    $this->flashMessage('Komentář byl smazán.', 'success');
+    $this->redirect('this');
 }
-
-public function commentFormSucceeded(\stdClass $data): void
-{
-	$postId = $this->getParameter('postId');
-
-	$this->database->table('comments')->insert([
-		'post_id' => $postId,
-		'name' => $data->name,
-		'email' => $data->email,
-		'content' => $data->content,
-	]);
-
-	$this->flashMessage('Děkuji za komentář', 'success');
-	$this->redirect('this');
-
-
-    
-}
-
-
 
 }

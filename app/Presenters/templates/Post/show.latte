@@ -60,6 +60,9 @@
     {foreach $comments as $comment}
       <p><b><a href="mailto:{$comment->email}" n:tag-if="$comment->email">
         {$comment->name}
+       <a href="{link 'Post:deleteComment', id => $comment->id}">Smazat</a>
+
+
       </a></b> napsal:</p>
   </div>
   <div>{$comment->content}</div>
