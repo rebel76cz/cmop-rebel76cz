@@ -1,72 +1,173 @@
 {block content}
-
 <style>
-  .container {
-    max-width: 1000px;
-    margin: 0 auto;
-    text-align: center;
-  }
-  
-  .file_name {
-    margin-bottom: 5px; 
-  }
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
 
-  .file_name img {
-    max-width: 1000px;
-    max-height: 400px;
+.background {
+  background-color: #f8f9fa;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);
+}
+
+.date {
+  font-size: 16px;
+  color: #888;
+  margin-bottom: 20px;
+}
+
+h1 {
+  font-size: 48px;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.post {
+  font-size: 20px;
+  line-height: 1.6;
+  margin-bottom: 40px;
+}
+
+.comments {
+  margin-top: 40px;
+}
+
+.card {
+  border: none;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+.card-title {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.card-subtitle {
+  font-size: 16px;
+  color: #888;
+  margin-bottom: 20px;
+}
+
+.card-text {
+  font-size: 20px;
+  line-height: 1.6;
+  margin-bottom: 20px;
+  color: #555;
+}
+
+.btn {
+  display: inline-block;
+  padding: 10px 20px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-size: 18px;
+  font-weight: 700;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-danger {
+  background-color: #dc3545;
+  color: #fff;
+  margin-right: 10px;
+}
+
+.btn-secondary {
+  background-color: #6c757d;
+  color: #fff;
+}
+
+.btn:hover {
+  background-color: #333;
+  color: #fff;
+}
+
+/* Media queries for responsive layout */
+@media screen and (max-width: 767px) {
+  .container {
+    max-width: 100%;
+    padding: 10px;
   }
   
-  .date {
-    margin-bottom: 15px;
+  .background {
+    padding: 10px;
+  }
+  
+  h1 {
+    font-size: 32px;
   }
   
   .post {
-    margin-bottom: 15px;
+    font-size: 16px;
   }
   
-  .comments {
-    text-align: left;
+  .btn {
+    font-size: 16px;
+  }
+}
+
+@media screen and (min-width: 768px) and (max-width: 991px) {
+  .container {
+    max-width: 90%;
+    padding: 20px;
   }
   
-  .comments p {
-    margin-bottom: 5px;
+  h1 {
+    font-size: 36px;
   }
-
-  .background{
-	background-color: #E5F3F9;
-	padding:20px;
-	}
-
-  a{
-    text-decoration: none;
+  
+  .post {
+    font-size: 18px;
   }
+}
+
+@media screen and (min-width: 992px) {
+  .container {
+    max-width: 800px;
+  }
+}
 
 </style>
 
+
 <div class="container">
-<div class="background">
-  <div class="file_name"><img src="{$basePath}/img/upload/{$post->file_name}"></div>
-  <div class="date">{$post->created_at|date:'F j, Y'}</div>
-  <h1 n:block="title">{$post->title}</h1>
+  <div class="background">
+   <img src="{$basePath}/img/upload/{$post->file_name}" width="100%" height="85%">
 
-  <div class="post">{$post->content}</div>
-    <a n:href="Edit:edit $post->id">Upravit příspěvek</a>
-  <h2>Vložte nový komentář</h2>
-  <div class="comments">
-{control commentForm }
+    <div class="date">{$post->created_at|date:'F j, Y'}</div>
+    <h1 n:block="title">{$post->title}</h1>
+<div class="post">{$post->content}</div>
+<a n:href="Edit:edit $post->id">Upravit příspěvek</a>
 
-  <h2>Komentáře</h2>
-  <div class="comments">
-    {foreach $comments as $comment}
-      <p><b><a href="mailto:{$comment->email}" n:tag-if="$comment->email">
-        {$comment->name}
-       <a href="{link 'Post:deleteComment', id => $comment->id}">Smazat</a>
+<h2>Vložte nový komentář</h2>
+<div class="comments">
+  {control commentForm }
+</div>
 
+<h2>Komentáře</h2>
+<div class="comments">
+  {foreach $comments as $comment}
+   <div class="card">
+  <div class="card-body">
+    <h5 class="card-title">{$comment->name}</h5>
+    <h6 class="card-subtitle mb-2 text-muted">{$comment->email}</h6>
+    <p class="card-text">{$comment->content}</p>
+<a href="{link 'Post:deleteComment', id => $comment->id}" class="btn btn-danger"><i class="fa fa-trash"></i> Smazat</a>
+<a href="{link 'Post:show', postId => $post->id}" class="btn btn-secondary"><i class="fa fa-chevron-left"></i> Zrušit</a>
 
-      </a></b> napsal:</p>
   </div>
-  <div>{$comment->content}</div>
-{/foreach}
 </div>
+  {/foreach}
 </div>
+  </div>
 </div>
