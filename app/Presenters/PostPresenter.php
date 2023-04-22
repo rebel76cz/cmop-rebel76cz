@@ -50,7 +50,7 @@ final class PostPresenter extends Nette\Application\UI\Presenter
 //zjisti, zda je uzivatel prihlasen
     if (!$this->getUser()->isLoggedIn()) {
         $this->flashMessage('Pro vytvoření komentáře se prosím přihlaste.', 'warning');
-    
+       // $this->redirect('in');
     }
 
     return $form;
