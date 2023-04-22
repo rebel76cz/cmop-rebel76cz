@@ -16,48 +16,58 @@ final class PostPresenter extends Nette\Application\UI\Presenter
         $this->commentManager = $commentManager;
     }
 
-	public function renderShow(int $postId): void
-	{
-		$post = $this->database
-			->table('posts')
-			->get($postId);
-		if (!$post) {
-			$this->error('Stránka nebyla nalezena');
-		}
-	
-		$this->template->post = $post;
-		$this->template->comments = $this->commentManager->getCommentsByPostId($postId);
-	}
-	
-
-    protected function createComponentCommentForm(): Form
+    public function renderShow(int $postId): void
     {
-        $form = new Form; 
+        $post = $this->database
+            ->table('posts')
+            ->get($postId);
 
-        $form->addText('name', 'Jméno:')
-            ->setRequired();
+        if (!$post) {
+            $this->error('Stránka nebyla nalezena');
+        }
 
-        $form->addEmail('email', 'E-mail:');
-
-        $form->addTextArea('content', 'Komentář:')
-            ->setRequired();
-
-        $form->addSubmit('send', 'Publikovat komentář');
-
-        $form->onSuccess[] = [$this, 'commentFormSucceeded'];
-
-        return $form;
+        $this->template->post = $post;
+        $this->template->comments = $this->commentManager->getCommentsByPostId($postId);
     }
 
-    public function commentFormSucceeded(\stdClass $data): void
+    protected function createComponentCommentForm(): Form
+{
+    $form = new Form;
+
+    $form->addText('name', 'Jméno:')
+        ->setRequired();
+
+    $form->addEmail('email', 'E-mail:');
+
+    $form->addTextArea('content', 'Komentář:')
+        ->setRequired();
+
+    $form->addSubmit('send', 'Publikovat komentář');
+
+    $form->onSuccess[] = [$this, 'commentFormSucceeded'];
+
+    $form->addProtection();
+//zjisti, zda je uzivatel prihlasen
+    if (!$this->getUser()->isLoggedIn()) {
+        $this->flashMessage('Pro vytvoření komentáře se prosím přihlaste.', 'warning');
+    
+    }
+
+    return $form;
+}
+
+
+    
+
+    public function commentFormSucceeded(Form $form, \stdClass $values): void
     {
         $postId = $this->getParameter('postId');
 
         $this->database->table('comments')->insert([
             'post_id' => $postId,
-            'name' => $data->name,
-            'email' => $data->email,
-            'content' => $data->content,
+            'name' => $values->name,
+            'email' => $values->email,
+            'content' => $values->content,
         ]);
 
         $this->flashMessage('Děkuji za komentář', 'success');
@@ -77,11 +87,13 @@ final class PostPresenter extends Nette\Application\UI\Presenter
         $this->flashMessage('Komentář byl smazán.');
         $this->redirect('this');
     }
-	public function actionDeleteComment(int $id): void
-{
-    $this->commentManager->deleteComment($id);
-    $this->flashMessage('Komentář byl smazán.', 'success');
-    $this->redirect('this');
-}
+
+    public function actionDeleteComment(int $id): void
+    {
+        $this->commentManager->deleteComment($id);
+        $this->flashMessage('Komentář byl smazán.', 'success');
+        $this->redirect('this');
+    }
+
 
 }

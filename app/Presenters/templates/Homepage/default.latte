@@ -33,149 +33,95 @@
 
   </body>
 
-</html>
+
 
 <style>
-  body {
-    font-family: 'Montserrat', sans-serif;
-    margin: 0;
-    padding: 0;
-  }
+ /* Global styles */
+/* Základní styly */
+body {
+  font-family: 'Open Sans', sans-serif;
+  background-color: #f5f5f5;
+  color: #333;
+}
 
-  .header {
-    background-color: #007f3f;
-    color: white;
-    text-align: center;
-    padding: 20px;
-    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.3);
-  }
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
 
-  .header__title {
-    font-size: 36px;
-    margin: 0;
-  }
+.header {
+  background-color: #333;
+  color: #fff;
+  padding: 20px;
+}
 
-  .container {
-    max-width: 960px;
-    margin: 0 auto;
-    padding: 20px;
-  }
+.header__title {
+  margin: 0;
+  font-size: 2.5rem;
+  font-weight: 700;
+}
 
-  .post {
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    margin-bottom: 20px;
-    padding: 20px;
-    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.3);
-    transition: box-shadow 0.3s ease-in-out;
-  }
+.post {
+  margin-bottom: 30px;
+  border: 1px solid #ccc;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
 
-  .post:hover {
-    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.5);
-  }
+.post__title {
+  margin-top: 0;
+  margin-bottom: 10px;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #333;
+}
 
-  .post__title {
-    font-size: 28px;
-    margin-top: 0;
-    margin-bottom: 10px;
-  }
+.post__content {
+  margin-bottom: 10px;
+  font-size: 1.1rem;
+  color: #555;
+}
 
-  .post__content {
-    margin-top: 0;
-    margin-bottom: 10px;
-    font-size: 18px;
-    line-height: 1.5;
-  }
+.post__date {
+  font-size: 0.9rem;
+  color: #777;
+}
 
-  .post__date {
-    color: #999;
-    font-size: 14px;
-  }
-
-  .create-post-btn {
-    display: block;
-    margin-top: 20px;
-    padding: 10px;
-    background-color: #007f3f;
-    color: white;
-    text-align: center;
-    text-decoration: none;
-    border-radius: 5px;
-    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.3);
-    transition: background-color 0.3s ease-in-out;
-  }
-
-  .create-post-btn:hover {
-    background-color: #005b2e;
-  }
-
-  .no-posts {
-    font-size: 24px;
-    text-align: center;
-    margin-top: 50px;
-  }
-
-  footer {
-  background-color: #007f3f;
-  color: white;
-  padding: 30px 0;
+.no-posts {
+  margin-bottom: 30px;
+  font-size: 1.1rem;
+  font-style: italic;
+  color: #888;
 }
 
 nav ul {
   list-style: none;
   margin: 0;
   padding: 0;
+  display: flex;
+  justify-content: center;
 }
 
 nav li {
-  display: inline-block;
   margin-right: 20px;
 }
 
-nav a {
-  color: white;
-  text-decoration: none;
-  font-size: 16px;
-  transition: all 0.3s ease;
-}
-
-nav a:hover {
-  text-decoration: underline;
-}
-
-.contact-info p {
-  font-weight: bold;
-  margin-bottom: 10px;
-}
-
-.contact-info li {
-  margin-bottom: 5px;
-}
-
-.social-media p {
-  font-weight: bold;
-  margin-bottom: 10px;
-}
-
-.social-media ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-.social-media li {
+nav a.create-post-btn {
   display: inline-block;
-  margin-right: 10px;
+  padding: 10px 20px;
+  background-color: #56B4D3;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.2s ease;
 }
 
-.social-media i {
-  font-size: 20px;
-  color: white;
-  transition: all 0.3s ease;
+nav a.create-post-btn:hover {
+  background-color: #3DA8C4;
 }
 
-.social-media i:hover {
-  transform: scale(1.1);
-}
-  </style>
+</style>
   {/block}
