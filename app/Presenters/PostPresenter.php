@@ -88,12 +88,9 @@ final class PostPresenter extends Nette\Application\UI\Presenter
         $this->redirect('this');
     }
 
-    public function actionDeleteComment(int $id): void
-    {
-        $this->commentManager->deleteComment($id);
-        $this->flashMessage('Komentář byl smazán.', 'success');
-        $this->redirect('this');
-    }
+    
+    
+
 
 
 }

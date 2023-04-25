@@ -140,7 +140,7 @@ h1 {
         <h5 class="card-title">{$comment->name}</h5>
         <h6 class="card-subtitle mb-2 text-muted">{$comment->email}</h6>
         <p class="card-text">{$comment->content}</p>
-        <a href="{link 'Post:deleteComment', id => $comment->id}" class="btn btn-danger"><i class="fa fa-trash"></i> Smazat</a>
+        <a n:href="deleteComment! $comment->id" class="btn btn-danger"><i class="fa fa-trash"></i> Smazat</a>
         <a href="{link 'Post:show', postId => $post->id}" class="btn btn-secondary"><i class="fa fa-chevron-left"></i> Zrušit</a>
       </div>
     </div>
