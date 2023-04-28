@@ -7,6 +7,9 @@ search:
 
 
 services:
-	- App\Router\RouterFactory::createRouter
-	- App\Model\PostFacade
-	- App\Model\CommentManager
+	router: App\Router\RouterFactory::createRouter
+	postFacade: App\Model\PostFacade
+	commentManager: App\Model\CommentManager
+	dbAuthenticator: App\Model\DbAuthenticator
+	security.authenticator: @dbAuthenticator
+	security.passwords: Nette\Security\Passwords(::PASSWORD_BCRYPT, [cost: 12])
