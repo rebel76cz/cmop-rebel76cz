@@ -2,18 +2,24 @@
 <head>
     <title>ŠkodaRada</title>
     <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <style>
+      img {
+        max-width: 100%;
+        height: auto;
+      }
+    </style>
   </head>
   <body>
     <header class="header">
       <h1 class="header__title">ŠkodaRada</h1>
-      <p class="header__subtitle">Nápady pro zlepšení světa</p>
+      <p class="header__subtitle">Konečně správná rada pro všechny Škodováky!</p>
     </header>
     <div class="container">
   {if $posts}
     {foreach $posts as $post}
   <div class="post">
     <h2 class="post__title"><a href="{link Post:show $post->id}">{$post->title}</a></h2>
-   <img src="{$basePath}/img/upload/{$post->file_name}" width="10%" height="20%">
+   <img src="{$basePath}/img/upload/{$post->file_name}">
     <p class="post__content">{$post->content|truncate:256}</p>
     <div class="post__date">{$post->created_at|date:'F j, Y'}</div>
   </div>
