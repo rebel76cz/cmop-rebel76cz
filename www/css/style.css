@@ -1,3 +1,146 @@
-h1{
-    color: blue;
-}
+/*styl pro default*/
+body {
+    font-family: "Open Sans", sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+    color: #333;
+    background-color: #f5f5f5;
+    margin: 0;
+  }
+  
+  /* Hlavička */
+  .header {
+    background-color: #3B5249;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .header__title {
+    font-size: 48px;
+    font-weight: bold;
+    margin: 0;
+    text-transform: uppercase;
+  }
+  
+  .header__subtitle {
+    font-size: 24px;
+    font-weight: normal;
+    margin: 0;
+  }
+  
+  /* Příspěvky */
+  
+  .post__title {
+    font-size: 32px;
+    font-weight: bold;
+    margin: 0;
+    padding-bottom: 10px
+    }
+  
+    /* Příspěvky */
+  .post {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    margin-bottom: 20px;
+    padding: 20px;
+    transition: all 0.3s ease-in-out; /* přidáme přechodový efekt */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* přidáme stín */
+  }
+  
+  .post:hover {
+    transform: translateY(-5px); /* animace při najetí myší */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* větší stín */
+  }
+  
+  .post__title {
+    font-size: 28px;
+    font-weight: bold;
+    margin: 0;
+    padding-bottom: 10px;
+    color: #333;
+    transition: color 0.3s ease-in-out; /* přidáme efekt na změnu barvy */
+  }
+  
+  .post__title:hover {
+    color: #f15b2a; /* změníme barvu při najetí myší */
+  }
+  
+  .post__content {
+    font-size: 18px;
+    line-height: 1.5;
+    margin: 0;
+    padding-bottom: 10px;
+    color: #666;
+  }
+  
+  .post__date {
+    font-size: 14px;
+    color: #999;
+    margin: 0;
+  }
+  
+  /* Žádné příspěvky */
+  .no-posts {
+    font-size: 18px;
+    margin: 0;
+    padding: 20px 0;
+    text-align: center;
+    color: #999;
+  }
+  
+  /* Patička */
+  .footer {
+    background-color: #333;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+  }
+  
+  /* Navigace */
+  nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  nav li {
+    display: inline-block;
+    margin-right: 20px;
+  }
+  
+  nav a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: bold;
+    transition: color 0.3s ease-in-out; /* přidáme efekt na změnu barvy */
+  }
+  
+  nav a:hover {
+    color: #f15b2a; /* změníme barvu při najetí myší */
+  }
+  
+  /* Globální styl pro tlačítka */
+  .button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #f15b2a;
+    color: #fff;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 4px;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .button:hover {
+    background-color: #fff;
+    color: #f15b2a;
+    border: 1px solid #f15b2a;
+    cursor: pointer;
+  }
+  /*konec default*/
+  /*show.latte*/
+  
