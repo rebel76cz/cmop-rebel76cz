@@ -8,13 +8,25 @@
 </head>
 
 <body>
-	<div n:foreach="$flashes as $flash" n:class="flash, $flash->type">{$flash->message}</div>
-
+	
+<div n:foreach="$flashes as $flash" n:class="flash, $flash->type">{$flash->message}</div>
 	{include content}
 
 	{block scripts}
+	
 	<script src="https://nette.github.io/resources/js/3/netteForms.min.js"></script>
 	{/block}
+
+<style>
+.flash {
+background-color: #dff0d8;
+color: #3c763d;
+border: 1px solid #d6e9c6;
+padding: 10px;
+margin-bottom: 10px;
+text-align: center;
+}
+</style>
 
 </body>
 </html>

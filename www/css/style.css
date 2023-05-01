@@ -7,27 +7,19 @@ body {
 }
 
 /* header styles */
-.header {
-  background-color: #222;
-  color: #fff;
-  padding: 1.5rem;
+.header1 {
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: center;
+  background-color: #444;
+  padding: 1rem;
 }
 
-.header__title {
+.header__title1 {
   font-size: 3rem;
   margin: 0;
+  color: #51ff1c;
 }
-
-.header__subtitle {
-  font-size: 1.2rem;
-  margin: 0;
-  font-weight: 300;
-}
-
-
 
 /* container styles */
 .container {
@@ -37,6 +29,38 @@ body {
   display: grid;
   grid-gap: 2rem;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+
+
+.all{
+background-image: url('	https://cdn.skoda-storyboard.com/2018/08/FABIA_COMBI_06.jpg');
+background-size: cover;
+background-position: center center;
+background-attachment: fixed;
+}
+
+nav ul {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+nav li {
+  margin: 0 10px;
+}
+
+nav a {
+  color: #18f535;
+  text-decoration: none;
+  padding: 10px 20px;
+  border: 2px solid #28ff15;
+  border-radius: 25px;
+}
+
+nav a:hover {
+  background-color: #19ff2d;
+  color: #6bf310;
 }
 
 /* post styles */
@@ -78,16 +102,17 @@ body {
 
 /* footer styles */
 .footer {
-  background-color: #222;
+  background-color: #444;
   color: #fff;
   padding: 1.5rem;
+  text-align: center;
 }
 
 .footer__content {
-  text-align: center;
   font-size: 1rem;
   margin-top: 1rem;
 }
+
 
 .footer__content p {
   margin: 0;
@@ -107,7 +132,7 @@ nav li {
 }
 
 nav a {
-  color: #fff;
+  color: #35ee24;
   text-decoration: none;
   padding: 0.5rem 1rem;
   border-radius: 3px;
@@ -115,8 +140,8 @@ nav a {
 }
 
 nav a:hover {
-  background-color: #fff;
-  color: #222;
+  background-color: #1fe249;
+  color: #000000;
 }
 
   /*konec default*/

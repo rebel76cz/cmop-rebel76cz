@@ -1,39 +1,77 @@
-{block content}
+ {block content}
 
 <head>
     <title>ŠkodaRada</title>
-    <link rel="stylesheet" type="text/css" href="/css/style.css">
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
-<div class="body1">
-<div class="container1">
-  <div class="background1">
-    <div class="date1">{$post->created_at|date:'F j, Y'}</div>
-    <h1 n:block="title1">{$post->title}</h1>
-    <div class="img1">
-    <img src="{$basePath}/img/upload/{$post->file_name}" width="100%" height="85%">
-</div>
-    <div class="post">{$post->content}</div>
-
-
-    <h2>Vložte nový komentář</h2>
-<div class="comments1">
-{control commentForm }
-</div>
-<h2>Komentáře</h2>
-<div class="comments1">
-  {foreach $comments as $comment}
-    <div class="card1">
-      <div class="card-body1">
-        <h5 class="card-title1">{$comment->name}</h5>
-        <h6 class="card-subtitle mb-2 text-muted1">{$comment->email}</h6>
-        <p class="card-text1">{$comment->content}</p>
-        <a n:href="deleteComment! $comment->id" class="btn btn-danger1"><i class="fa1 fa-trash"></i> Smazat</a>
-        <a href="{link 'Post:show', postId => $post->id}" class="bt"><i class="zrusit"></i> Zrušit</a>
-      </div>
+<div class="container">
+  <div class="row">
+    <div class="col-md-8 mx-auto">
+ <div class="card mb-4">
+    <div class="card-body">
+      <h1 class="card-title">{block title1}{$post->title}{/block}</h1>
+      <img src="{$basePath}/img/upload/{$post->file_name}" class="card-img-top" alt="Post Image">
+      <div class="card-text mt-3">{$post->content}</div>
     </div>
-  {/foreach}
-</div>
+  </div>
 
-<a href="{link 'Homepage:default'}" class="home"><i class="back"></i> Zpět na články</a>
+  <h2 class="my-4">Vložte nový komentář</h2>
+  <div class="mb-4">
+    {control commentForm}
+  </div>
+
+  <h2 class="my-4">Komentáře</h2>
+  {if $comments}
+    {foreach $comments as $comment}
+      <div class="card mb-4">
+        <div class="card-body">
+          <h5 class="card-title">{$comment->name}</h5>
+          <h6 class="card-subtitle mb-2 text-muted">{$comment->email}</h6>
+          <p class="card-text">{$comment->content}</p>
+          <div class="btn-group" role="group" aria-label="Comment Actions">
+            <a href="#" class="btn btn-sm btn-danger" n:href="deleteComment! $comment->id"><i class="fas fa-trash-alt"></i> Smazat</a>
+          </div>
+        </div>
+      </div>
+    {/foreach}
+  {else}
+    <div class="alert alert-info">Zatím zde nejsou žádné komentáře.</div>
+  {/if}
 </div>
+  </div>
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <a href="{link 'Homepage:default'}" class="btn btn-success my-4"><i class="fas fa-arrow-left"></i> Zpět na články</a>
+    </div>
+  </div>
+</div>
+<style>
+  .btn-success {
+    background-color: #28a745;
+    border-color: #28a745;
+  }
+
+  .btn-success:hover {
+    background-color: #218838;
+    border-color: #1e7e34;
+  }
+
+  .btn-success:focus {
+    box-shadow: none;
+  }
+
+  .btn-success:active {
+    background-color: #1e7e34;
+    border-color: #1c7430;
+  }
+
+  .btn-success:not(:disabled):not(.disabled).active:focus,
+  .btn-success:not(:disabled):not(.disabled):active:focus,
+  .show > .btn-success.dropdown-toggle:focus {
+    box-shadow: none;
+  }
+</style>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+{/block}

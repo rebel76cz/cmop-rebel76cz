@@ -1,125 +1,50 @@
 {block content}
+<div class="all">
  <head>
     <title>ŠkodaRada</title>
     <link rel="stylesheet" type="text/css" href="/css/style.css">
-    <style>
-      :root {
-        --color-primary: #1c1c1c;
-        --color-secondary: #fff;
-        --color-tertiary: #333;
-        --border-radius: 5px;
-        --transition: all 0.3s ease-in-out;
-      }
-      *,
-      *::before,
-      *::after {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
-      body {
-        font-family: 'Roboto', sans-serif;
-        font-size: 16px;
-        line-height: 1.5;
-      }
-      img {
-        max-width: 100%;
-        height: auto;
-      }
-      .header, .footer {
-        background-color: var(--color-primary);
-        color: var(--color-secondary);
-        padding: 30px 0;
-      }
-      .header__title, .footer__text {
-        text-align: center;
-      }
-      .header__subtitle {
-        text-align: center;
-        font-size: 18px;
-        margin-top: 10px;
-      }
-      .footer__content {
-        text-align: center;
-        margin-top: 20px;
-      }
-      .footer__text {
-        font-size: 14px;
-        margin-bottom: 10px;
-      }
-      .btn {
-        display: inline-block;
-        padding: 10px 20px;
-        background-color: var(--color-secondary);
-        color: var(--color-tertiary);
-        border-radius: var(--border-radius);
-        text-decoration: none;
-        transition: var(--transition);
-      }
-      .btn:hover {
-        background-color: var(--color-tertiary);
-        color: var(--color-secondary);
-      }
-      .container {
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 0 15px;
-      }
-      .post {
-        margin: 30px 0;
-      }
-      .post__title a {
-        color: var(--color-tertiary);
-        text-decoration: none;
-      }
-      .post__title a:hover {
-        text-decoration: underline;
-      }
-      .post__content {
-        margin-top: 10px;
-      }
-      .post__date {
-        margin-top: 10px;
-        font-size: 14px;
-      }
-      .no-posts {
-        text-align: center;
-        margin: 50px 0;
-      }
-    </style>
+
   </head>
   <body>
-    <header class="header">
-      <h1 class="header__title">ŠkodaRada</h1>
-    
-    </header>  <p class="header__subtitle">Konečně správná rada pro všechny Škodováky!</p>
+   <header class="header1">
+  <h1 class="header__title1">ŠkodaRada</h1>
+</header>
+    <p class="header__subtitle">Konečně správná rada pro všechny Škodováky!</p>
     <div class="container">
-      {if $posts}
-        {foreach $posts as $post}
-          <div class="post">
-            <h2 class="post__title"><a href="{link Post:show $post->id}">{$post->title}</a></h2>
-            <img src="{$basePath}/img/upload/{$post->file_name}">
-            <p class="post__content">{$post->content|truncate:256}</p>
-            <div class="post__date">{$post->created_at|date:'F j, Y'}</div>
-          </div>
-        {/foreach}
-      {else}
-        <p class="no-posts">Žádné příspěvky.</p>
-      {/if}
+  {if $posts}
+  {foreach $posts as $post}
+    <div class="post">
+      <h2 class="post__title"><a href="{link Post:show $post->id}">{$post->title}</a></h2>
+      <img src="{$basePath}/img/upload/{$post->file_name}">
+      <p class="post__content">{$post->content|truncate:256} <a href="{link Post:show $post->id}">Číst dál</a></p>
+      <div class="post__date">{$post->created_at|date:'F j, Y'}</div>
     </div>
-    <footer class="footer">
-      <div class="container">
-        <nav>
-          <ul>
-            <li><a class="btn" href="#" n:href="Register:user" n:if="$user->isLoggedIn() === false">Registrovat se</a></li>
-            <li><a class="btn" href="#" n:href="Sign:in" n:if="$user->isLoggedIn() === false">Přihlásit se</a></li>
-            <li><a class="btn" href="#" n:href="Sign:out" n:if="$user->isLoggedIn()">Odhlásit se</a></li>
-          </ul>
-        </nav>
-        <div class="footer__content">
-          <p class="footer__text">&copy; 2023 ŠkodaRada. Všechna práva vyhrazena.</p>
-          <p>Další informace naleznete na <a href="#">www.skodarada.cz</a></p>
-        </div>
-      </div>
-    </footer>
-  </body>
+  {/foreach}
+{else}
+  <p class="no-posts">Žádné příspěvky.</p>
+{/if}
+
+    </div>
+     </body>
+
+<footer class="footer">
+  <div class="container">
+    <nav>
+      <ul>
+        <li><a class="btn" href="#" n:href="Register:user" n:if="$user->isLoggedIn() === false">Registrovat se</a></li>
+        <li><a class="btn" href="#" n:href="Sign:in" n:if="$user->isLoggedIn() === false">Přihlásit se</a></li>
+        <li><a class="btn" href="#" n:href="Sign:out" n:if="$user->isLoggedIn()">Odhlásit se</a></li>
+      </ul>
+    </nav>
+    <div class="footer__content">
+      <p class="footer__text">&copy; 2023 ŠkodaRada. Všechna práva vyhrazena.</p>
+      <p>Zůstaňte v kontaktu s námi a sledujte novinky našeho projektu ŠkodaRada!</p>
+    </div>
+  </div>
+</footer>
+
+</div>
+{/block}
+
+    
+ 
