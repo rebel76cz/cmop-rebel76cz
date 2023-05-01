@@ -16,7 +16,11 @@
     <div class="post">
       <h2 class="post__title"><a href="{link Post:show $post->id}">{$post->title}</a></h2>
       <img src="{$basePath}/img/upload/{$post->file_name}">
-      <p class="post__content">{$post->content|truncate:256} <a href="{link Post:show $post->id}">Číst dál</a></p>
+<div class="post__content2">
+  <p class="post__excerpt2">{$post->content|truncate:256}</p>
+  <a href="{link Post:show $post->id}" class="post__read-more2">Číst dál</a>
+</div>
+
       <div class="post__date">{$post->created_at|date:'F j, Y'}</div>
     </div>
   {/foreach}
@@ -38,7 +42,7 @@
     </nav>
     <div class="footer__content">
       <p class="footer__text">&copy; 2023 ŠkodaRada. Všechna práva vyhrazena.</p>
-      <p>Zůstaňte v kontaktu s námi a sledujte novinky našeho projektu ŠkodaRada!</p>
+      <p>Naše rady jsou šité na míru pro Škoda auto - najdeme chybu a pomůžeme ji vyřešit!</p>
     </div>
   </div>
 </footer>

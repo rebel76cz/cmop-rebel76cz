@@ -21,6 +21,19 @@ body {
   color: #51ff1c;
 }
 
+.header__subtitle {
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+  color: #3c8600;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f5f5f5;
+  border-radius: 10px;
+  box-shadow: 2px 2px 5px #ccc;
+}
+
+
 /* container styles */
 .container {
   max-width: 1200px;
@@ -148,6 +161,40 @@ nav a:hover {
   /*show.latte*/
   /* Container styles */
 
+  .post__content2 {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .post__excerpt2 {
+    margin-bottom: 1rem;
+    line-height: 1.5;
+  }
+  
+  .post__read-more2 {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    border: 2px solid #000000;
+    border-radius: 0.5rem;
+    margin-top: 1rem;
+    color: #000000;
+    text-decoration: none;
+    font-weight: bold;
+    transition: all 0.3s ease-in-out;
+    max-width: 20%;
+    background-color: #18f535;
+  }
+  
+  .post__read-more2:hover {
+    color: #3c8600;
+    background-color: #000000;
+  }
+  
+  
+
+
+
+
 
 
   
@@ -258,5 +305,3 @@ nav a:hover {
     margin-right: 0.5rem;
   }
 
-  
-  
