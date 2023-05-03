@@ -13,9 +13,8 @@
                         <h1 class="card-title">{block title1}{$post->title}{/block}</h1>
                         <img src="{$basePath}/img/upload/{$post->file_name}" class="card-img-top" alt="Post Image">
                         <div class="card-text mt-3">
-                        {foreach $paragraphs = explode("\n", $post->content) as $paragraph}
-    <p>{$paragraph}</p>
-{/foreach}
+                        {foreach $paragraphs = explode("\n", $post->content) as $paragraph}<p>{$paragraph}</p>
+                    {/foreach}
 
                         </div>
                     </div>
