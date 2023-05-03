@@ -47,7 +47,7 @@ body {
 
 
 .all{
-background-image: url('	https://cdn.skoda-storyboard.com/2018/08/FABIA_COMBI_06.jpg');
+background-image: url('	https://t4.ftcdn.net/jpg/04/82/41/77/360_F_482417756_vTgJaKF7Zmlc4O8SSJ6o2GDQ9QJsHLms.jpg');
 background-size: cover;
 background-position: center center;
 background-attachment: fixed;
@@ -114,22 +114,82 @@ nav a:hover {
 }
 
 /* footer styles */
+/* Default styles for the footer */
 .footer {
-  background-color: #444;
+  background-color: #333;
   color: #fff;
-  padding: 1.5rem;
-  text-align: center;
+  padding: 20px;
 }
+/* Základní styly pro mobilní zařízení */
 
-.footer__content {
-  font-size: 1rem;
-  margin-top: 1rem;
-}
-
-
-.footer__content p {
+/* Odstranit marginy a padding */
+* {
   margin: 0;
+  padding: 0;
 }
+
+/* Nastavit šířku stránky na 100% */
+
+/* Nastavit velikost textu pro mobilní zařízení */
+@media only screen and (max-width: 600px) {
+  body {
+    font-size: 14px;
+  }
+}
+
+/* Nastavit obrázky tak, aby nevyskakovaly ze svých kontejnerů */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Nastavit tlačítka */
+
+
+/* Nastavit tlačítka pro mobilní zařízení */
+@media only screen and (max-width: 600px) {
+  button {
+    font-size: 14px;
+    padding: 8px 16px;
+  }
+}
+
+/* Styles for small screens */
+@media only screen and (max-width: 900px) {
+  .footer {
+    padding: 10px;
+  }
+  .footer__content {
+    font-size: 14px;
+  }
+  nav a {
+    font-size: small;
+  }
+ 
+}
+
+/* Styles for medium screens */
+@media only screen and (min-width: 601px) and (max-width: 900px) {
+  .footer__content {
+    display: flex;
+    flex-direction: column;
+  }
+  .footer__text {
+    margin-bottom: 10px;
+  }
+ 
+}
+
+/* Styles for large screens */
+@media only screen and (min-width: 901px) {
+  .footer__content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+}
+
 
 /* navigation styles */
 nav ul {
@@ -183,19 +243,14 @@ nav a:hover {
     transition: all 0.3s ease-in-out;
     max-width: 20%;
     background-color: #18f535;
+    font-size: 0.9rem;
   }
   
   .post__read-more2:hover {
-    color: #3c8600;
-    background-color: #000000;
+    color: #000000;
+    background-color: #269903;
   }
   
-  
-
-
-
-
-
 
   
 .container1 {
