@@ -56,9 +56,6 @@ final class PostPresenter extends Nette\Application\UI\Presenter
     return $form;
 }
 
-
-    
-
     public function commentFormSucceeded(Form $form, \stdClass $values): void
     {
         $postId = $this->getParameter('postId');
@@ -87,10 +84,5 @@ final class PostPresenter extends Nette\Application\UI\Presenter
         $this->flashMessage('Komentář byl smazán.');
         $this->redirect('this');
     }
-
-    
-    
-
-
 
 }
