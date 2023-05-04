@@ -25,11 +25,21 @@ final class RegisterPresenter extends Nette\Application\UI\Presenter
 		$form->addSubmit('send', 'Registrovat');
 
 		$form->onSuccess[] = [$this, 'register'];
+
 		return $form;
 	}
 
     public function register(Form $form, \stdClass $data): void
     {
+        $existingUser = $this->database->table('users')
+            ->where('username', $data->username)
+            ->fetch();
+
+        if ($existingUser) {
+            $form['username']->addError('Toto uživatelské jméno je již zabrané.');
+            return;
+        }
+
         $this->database->table('users')->insert([
             'username' => $data->username,
             'password' => $this->passwords->hash($data->password),
@@ -37,6 +47,7 @@ final class RegisterPresenter extends Nette\Application\UI\Presenter
         ]);
 
         $this->flashMessage('Děkuji za registraci', 'success');
+        $this->flashMessage('Teď se můžeš jít přihlásit', 'success');
         $this->redirect('this');
     }
 
