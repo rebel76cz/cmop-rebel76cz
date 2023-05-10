@@ -16,7 +16,7 @@
    {foreach $paragraphs = explode("\n", $post->content) as $paragraph}<p>{$paragraph}</p>
 {/foreach}
   </div>
-
+  <li>{if $user->isLoggedIn()}<a n:href="Edit:create" class="nav-link px-2 text-white">Vytvořit příspěvek</a>{/if}</li>
   <h2 class="my-4">Vložte nový komentář</h2>
   <div class="mb-4">
     {control commentForm}

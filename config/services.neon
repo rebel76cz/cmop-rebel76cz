@@ -13,3 +13,4 @@ services:
 	dbAuthenticator: App\Model\DbAuthenticator
 	security.authenticator: @dbAuthenticator
 	security.passwords: Nette\Security\Passwords(::PASSWORD_BCRYPT, [cost: 12])
+	

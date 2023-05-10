@@ -1,0 +1,6 @@
+security:
+	roles:
+		admin: [admin]
+		guest: [guest]
+
+	# ...
