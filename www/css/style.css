@@ -7,20 +7,44 @@ body {
 }
 
 /* header styles */
-.header1 {
+.header {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   background-color: #444;
   padding: 1rem;
 }
 
-.header__title1 {
+.header__title {
   font-size: 3rem;
   margin: 0;
   color: #51ff1c;
 }
 
+.header__user {
+  display: flex;
+  align-items: center;
+}
+
+.header__user-greeting {
+  font-size: 1.5rem;
+  margin-right: 1rem;
+  color: #fff;
+}
+
+.header__login,
+.header__logout {
+  font-size: 1.5rem;
+  margin-left: 1rem;
+  color: #fff;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.header__login:hover,
+.header__logout:hover {
+  color: #51ff1c;
+}
 .header__subtitle {
   font-size: 24px;
   font-weight: bold;

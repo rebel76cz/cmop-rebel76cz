@@ -1,14 +1,24 @@
 {block content}
 <div class="all">
+
  <head>
     <title>ŠkodaRada</title>
     <link rel="stylesheet" type="text/css" href="/css/style.css">
-
   </head>
   <body>
-   <header class="header1">
-  <h1 class="header__title1">ŠkodaRada</h1>
+<header class="header">
+  <h1 class="header__title">ŠkodaRada</h1>
+  <div class="header__user">
+    {if $user->isLoggedIn()}
+      <span class="header__user-greeting">Vítejte, {$user->identity->name}!</span>
+      <a class="header__logout" href="{link 'Sign:out'}">Odhlásit se</a>
+    {else}
+      <a class="header__login" href="{link 'Sign:in'}">Přihlásit se</a>
+    {/if}
+  </div>
 </header>
+
+
     <p class="header__subtitle">Konečně správná rada pro všechny Škodováky!</p>
     <div class="container">
   {if $posts}
@@ -38,18 +48,21 @@
     <nav>
       <ul>
         <li><a class="btn" href="#" n:href="Register:user" n:if="$user->isLoggedIn() === false">Registrovat se</a></li>
-        <li><a class="btn" href="#" n:href="Sign:in" n:if="$user->isLoggedIn() === false">Přihlásit se</a></li>
         <li><a class="btn" href="#" n:href="Sign:out" n:if="$user->isLoggedIn()">Odhlásit se</a></li>
+       <li><a class="btn" href="{link admin}">Otevřít admin.latte</a></li>
+
       </ul>
     </nav>
     <div class="footer__content">
       <p class="footer__text">&copy; 2023 ŠkodaRada.</p>
       <p>Naše rady jsou šité na míru pro Škoda auto - najdeme chybu a pomůžeme ji vyřešit!</p>
+
     </div>
   </div>
 </footer>
 
 </div>
+
 {/block}
 
     
