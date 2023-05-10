@@ -12,6 +12,9 @@ final class SignPresenter extends Nette\Application\UI\Presenter
 		$form->addText('username', 'Uživatelské jméno:')
 			->setRequired('Prosím vyplňte své uživatelské jméno.');
 
+        $form->addText('lastanme', 'Přijmení:')
+			->setRequired('Prosím vyplňte své přijmení.');
+
 		$form->addPassword('password', 'Heslo:')
 			->setRequired('Prosím vyplňte své heslo.');
 

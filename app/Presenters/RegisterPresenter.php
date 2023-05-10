@@ -56,9 +56,10 @@ final class RegisterPresenter extends Nette\Application\UI\Presenter
         $this->flashMessage('Teď se můžeš jít přihlásit', 'success');
         $this->redirect('this');
     }
-    public function getAll(): array
-	{
-		return $this->database->table('users')->fetchAll();
-	}
+public function renderDefault(): void
+{
+    $users = $this->getAll();
+    $this->template->users = $users;
 }
 
+}

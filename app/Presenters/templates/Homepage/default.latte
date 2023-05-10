@@ -17,7 +17,8 @@
     {/if}
   </div>
 </header>
-
+ 
+  
 
     <p class="header__subtitle">Konečně správná rada pro všechny Škodováky!</p>
     <div class="container">
@@ -48,8 +49,9 @@
     <nav>
       <ul>
         <li><a class="btn" href="#" n:href="Register:user" n:if="$user->isLoggedIn() === false">Registrovat se</a></li>
-        <li><a class="btn" href="#" n:href="Sign:out" n:if="$user->isLoggedIn()">Odhlásit se</a></li>
-       <li><a class="btn" href="{link admin}">Otevřít admin.latte</a></li>
+       
+  <a href="{link 'Homepage:admin'}">Administrace</a>
+
 
       </ul>
     </nav>

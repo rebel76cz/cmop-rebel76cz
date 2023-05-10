@@ -13,23 +13,28 @@ class DbAuthenticator implements Nette\Security\Authenticator
 	}
 
 	public function authenticate(string $username, string $password): SimpleIdentity
-	{
-		$row = $this->database->table('users')
-			->where('username', $username)
-			->fetch();
+{
+    $row = $this->database->table('users')
+        ->where('username', $username)
+        ->fetch();
 
-		if (!$row) {
-			throw new Nette\Security\AuthenticationException('User not found.');
-		}
+    if (!$row) {
+        throw new Nette\Security\AuthenticationException('User not found.');
+    }
 
-		if (!$this->passwords->verify($password, $row->password)) {
-			throw new Nette\Security\AuthenticationException('Invalid password.');
-		}
+    if (!$this->passwords->verify($password, $row->password)) {
+        throw new Nette\Security\AuthenticationException('Invalid password.');
+    }
 
-		return new SimpleIdentity(
-			$row->id,
-			$row->role, // or array of roles
-			['name' => $row->username],
-		);
-	}
+    $roles = ['user'];
+    if ($row->role === 'admin') {
+        $roles[] = 'admin';
+    }
+
+    return new SimpleIdentity(
+        $row->id,
+        $roles,
+        ['name' => $row->username],
+    );
+}
 }
