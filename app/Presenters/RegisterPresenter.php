@@ -16,8 +16,12 @@ final class RegisterPresenter extends Nette\Application\UI\Presenter
 	protected function createComponentRegisterForm(): Form
 	{
 		$form = new Form;
-		$form->addText('username', 'Uživatelské jméno:')
+		$form->addText('username', 'Jméno:')
 			->setRequired('Prosím vyplňte své uživatelské jméno.');
+
+        $form->addText('lastname', 'Přijmení:')
+			->setRequired('Prosím vyplňte své uživatelské jméno.');
+
 
 		$form->addPassword('password', 'Heslo:')
 			->setRequired('Prosím vyplňte své heslo.');
@@ -33,15 +37,17 @@ final class RegisterPresenter extends Nette\Application\UI\Presenter
     {
         $existingUser = $this->database->table('users')
             ->where('username', $data->username)
+            ->where('lastname', $data->username)
             ->fetch();
 
         if ($existingUser) {
-            $form['username']->addError('Toto uživatelské jméno je již zabrané.');
+            $form['username']->addError('Toto jméno je již zabrané.');
             return;
         }
 
         $this->database->table('users')->insert([
             'username' => $data->username,
+            'lastname' => $data->lastname,
             'password' => $this->passwords->hash($data->password),
 			'role' => 'user',
         ]);
