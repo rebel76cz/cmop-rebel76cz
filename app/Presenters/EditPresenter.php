@@ -16,18 +16,20 @@ final class EditPresenter extends Nette\Application\UI\Presenter
         parent::__construct();
         $this->database = $database;
     }
+
     protected function createComponentPostForm(): Form
     {
         $form = new Form;
         $form->setMethod('POST');
-        $form->addText('title', 'Titulek');
+        $form->addUpload('file', 'Upload file')
+            ->addCondition(Form::FILLED)
+            ->addRule(Form::IMAGE, 'Only image files are allowed');
+        $form->addText('title', 'Title');
         $form->addTextArea('content', 'Obsah:')
-        ->setRequired();
-        $form->addUpload('file', 'Nahrát obrázek')
-        ->addRule(Form::IMAGE, 'Only image files are allowed');
-        $form->addSubmit('submit', 'Upravit');
+		->setRequired();
+        $form->addSubmit('submit', 'Submit');
         $form->onSuccess[] = [$this, 'postFormSucceeded'];
-    
+
         $id = $this->getParameter('id');
         if ($id) {
             $post = $this->database->table('posts')->get($id);
@@ -35,82 +37,86 @@ final class EditPresenter extends Nette\Application\UI\Presenter
                 $form->setDefaults([
                     'file' => '',
                     'title' => $post->title,
-                    'content' => $post->content
                 ]);
             }
         }
-    
+
         return $form;
     }
-    
+
     public function postFormSucceeded(Form $form, array $data): void
-{
-    $form->addText('file_name', 'File name')->setDefaultValue('');
+    {
+        $file = $data['file'];
+        $title = $data['title'];
+        $content = $data['content'];
+        $fileName = '';
 
-// In the postFormSucceeded method
-$file = $data['file'];
-$title = $data['title'];
-$file_name = $data['file_name'] ?? null;
-
-$content = $data['content'];
-
-    if ($file->isOk() && !$file->isImage()) {
-        $form->addError('The uploaded file is not a valid image');
-        return;
-    }
-
-    if ($file->isOk()) {
-        $fileName = uniqid() . '.' . $file->getImageFileExtension();
-        $file->move(__DIR__ . '/../../www/img/upload/' . $fileName);
-
-    }
-
-    $id = $this->getParameter('id');
-    if ($id) {
-        $post = $this->database->table('posts')->get($id);
-        if ($post instanceof ActiveRow) {
-            $imageId = $post->image_id;
-
-            // delete old image if new one is uploaded
-            if ($file->isOk()) {
-                $this->database->table('images')->wherePrimary($imageId)->delete();
-                $imageId = $this->database->table('images')->insert([
-                    'name' => $fileName,
-                    'size' => $file->getSize(),
-                    'data' => file_get_contents($file->getTemporaryFile()),
-                ])->getPrimary();
-            }
-
-            $post->update([
-                'image_id' => $imageId,
-                'file_name' => ($file->isOk()) ? $fileName : $post->file_name,
-                'title' => $title,
-                'content' => $content,
-            ]);
-            $this->flashMessage('Příspěvek byl úspěšně upraven.', 'success');
-        } else {
-            $this->flashMessage('Příspěvek nebyl nalezen.', 'error');
+        if ($file->isOk() && !$file->isImage()) {
+            $form->addError('The uploaded file is not a valid image');
+            return;
         }
-    } else {
+
+        $fileName = null;
+
         if ($file->isOk()) {
-            $imageId = $this->database->table('posts')->insert([
-                'name' => $fileName,
-                'size' => $file->getSize(),
-                'data' => file_get_contents($file->getTemporaryFile()),
-            ])->getPrimary();
-
-            $this->database->table('posts')->insert([
-                'image_id' => $imageId,
-                'content' => $content,
-                'title' => $title,
-            ]);
-
-            $this->flashMessage('Příspěvek byl úspěšně vytvořen.', 'success');
-        } else {
-            $this->flashMessage('The uploaded file is not valid.', 'error');
+            $fileName = uniqid() . '.' . $file->getImageFileExtension();
+            $file->move(__DIR__ . '/../../www/img/upload/' . $fileName);
         }
+        
+
+        $id = $this->getParameter('id');
+        if ($id) {
+            $post = $this->database->table('posts')->get($id);
+            if ($post instanceof ActiveRow) {
+                $post->update([
+                    'file_name' => ($file->isOk()) ? $fileName : $post->file_name,
+                    'title' => $title,
+                    'content' => $content,
+                ]);
+                $this->flashMessage('The item has been updated.', 'success');
+            } else {
+                $this->flashMessage('The item could not be found.', 'error');
+            }
+        } else {
+            if ($file->isOk()) {
+                $this->database->table('posts')->insert([
+                    'file_name' => $fileName,
+                    'title' => $title,
+                    'content' => $content,
+                ]);
+                $this->flashMessage('The item has been created.', 'success');
+            } else {
+                $this->database->table('posts')->insert([
+                    'file_name' => null,
+                    'title' => $title,
+                    'content' => $content,
+                ]);
+                $this->flashMessage('The item has been created without image.', 'success');
+            }
+        }
+
+        $this->redirect('this');
     }
 
-    $this->redirect('this');
-}
+
+    public function renderEdit(int $id): void
+    {
+        $post = $this->database->table('posts')->get($id);
+
+        if (!$post instanceof ActiveRow) {
+            $this->error('Post not found');
+        }
+
+        $this->getComponent('postForm')
+            ->setDefaults($post->toArray());
+    }
+
+    protected function startup(): void
+    {
+        parent::startup();
+
+        if (!$this->getUser()->isLoggedIn()) {
+            $this->redirect('Sign:in');
+        }
+    }
 }

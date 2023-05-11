@@ -18,7 +18,7 @@
   </div>
 </header>
  
-  
+
 
     <p class="header__subtitle">Konečně správná rada pro všechny Škodováky!</p>
     <div class="container">
@@ -51,6 +51,7 @@
         <li><a class="btn" href="#" n:href="Register:user" n:if="$user->isLoggedIn() === false">Registrovat se</a></li>
        
   <a href="{link 'Homepage:admin'}">Administrace</a>
+  <li>{if $user->isLoggedIn()}<a n:href="Edit:create" class="nav-link px-2 text-white">Vytvořit příspěvek</a>{/if}</li>
 
 
       </ul>
