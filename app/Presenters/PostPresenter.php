@@ -86,4 +86,16 @@ final class PostPresenter extends Nette\Application\UI\Presenter
         $this->redirect('this');
     }
 
+    public function handleDelete(int $postId): void
+    {
+        // Check if the user is logged in and authorized to delete the post
+        if ($this->getUser()->isLoggedIn()) {
+            $this->database->table('posts')->where('id', $postId)->delete();
+            $this->flashMessage('Příspěvek byl smazán.', 'success');
+            $this->redirect('Homepage:default');
+        } else {
+            $this->flashMessage('Pro smazání příspěvku, se prosím přihlaš.', 'error');
+            $this->redirect('this');
+        }
+    }
 }

@@ -2,21 +2,26 @@
 <div class="all">
 
  <head>
-    <title>ŠkodaRada</title>
-    <link rel="stylesheet" type="text/css" href="/css/style.css">
-  </head>
-  <body>
-<header class="header">
-  <h1 class="header__title">ŠkodaRada</h1>
-  <div class="header__user">
-    {if $user->isLoggedIn()}
-      <span class="header__user-greeting">Vítejte, {$user->identity->name}!</span>
-      <a class="header__logout" href="{link 'Sign:out'}">Odhlásit se</a>
-    {else}
-      <a class="header__login" href="{link 'Sign:in'}">Přihlásit se</a>
-    {/if}
-  </div>
-</header>
+  <title>ŠkodaRada</title>
+  <link rel="stylesheet" type="text/css" href="/css/style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+  <header class="header">
+    <div class="header__container">
+      <h1 class="header__title">ŠkodaRada</h1>
+      <div class="header__user">
+        {if $user->isLoggedIn()}
+        <span class="header__user-greeting">Vítejte, {$user->identity->name}!</span>
+        <a class="header__logout" href="{link 'Sign:out'}">Odhlásit se</a>
+        {else}
+        <a class="header__login" href="{link 'Sign:in'}">Přihlásit se</a>
+        {/if}
+      </div>
+    </div>
+  </header>
+
  
 
 
@@ -46,16 +51,18 @@
 
 <footer class="footer">
   <div class="container">
-    <nav>
-      <ul>
-        <li><a class="btn" href="#" n:href="Register:user" n:if="$user->isLoggedIn() === false">Registrovat se</a></li>
-       
-  <a href="{link 'Homepage:admin'}">Administrace</a>
-  <li>{if $user->isLoggedIn()}<a n:href="Edit:create" class="nav-link px-2 text-white">Vytvořit příspěvek</a>{/if}</li>
+<nav>
+  <ul class="nav">
+    <li><a class="nav-link btn btn-secondary" href="#" n:href="Register:user" n:if="$user->isLoggedIn() === false">Registrace</a></li>
+    <li><span class="nav-divider">|</span></li>
+    <li><a class="nav-link btn btn-secondary" href="{link 'Homepage:admin'}">Administrace</a></li>
+    <li><span class="nav-divider">|</span></li>
+    {if $user->isLoggedIn()}
+      <li><a n:href="Edit:create" class="nav-link btn btn-primary">Vytvořit příspěvek</a></li>
+    {/if}
+  </ul>
+</nav>
 
-
-      </ul>
-    </nav>
     <div class="footer__content">
       <p class="footer__text">&copy; 2023 ŠkodaRada.</p>
       <p>Naše rady jsou šité na míru pro Škoda auto - najdeme chybu a pomůžeme ji vyřešit!</p>

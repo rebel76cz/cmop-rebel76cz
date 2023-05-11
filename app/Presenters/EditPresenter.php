@@ -6,6 +6,7 @@ use Nette;
 use Nette\Application\UI\Form;
 use Nette\Database\Explorer;
 use Nette\Database\Table\ActiveRow;
+use App\Router\RouterFactory;
 
 final class EditPresenter extends Nette\Application\UI\Presenter
 {
@@ -52,7 +53,7 @@ final class EditPresenter extends Nette\Application\UI\Presenter
         $fileName = '';
 
         if ($file->isOk() && !$file->isImage()) {
-            $form->addError('The uploaded file is not a valid image');
+            $form->addError('Nahraný soubor není obrázek.');
             return;
         }
 
@@ -73,9 +74,9 @@ final class EditPresenter extends Nette\Application\UI\Presenter
                     'title' => $title,
                     'content' => $content,
                 ]);
-                $this->flashMessage('The item has been updated.', 'success');
+                $this->flashMessage('Položka byla aktualizována.', 'success');
             } else {
-                $this->flashMessage('The item could not be found.', 'error');
+                $this->flashMessage('Položka neaby nalezena.', 'error');
             }
         } else {
             if ($file->isOk()) {
@@ -84,14 +85,14 @@ final class EditPresenter extends Nette\Application\UI\Presenter
                     'title' => $title,
                     'content' => $content,
                 ]);
-                $this->flashMessage('The item has been created.', 'success');
+                $this->flashMessage('Příspěvek se nahrál s obrázkem.', 'success');
             } else {
                 $this->database->table('posts')->insert([
                     'file_name' => null,
                     'title' => $title,
                     'content' => $content,
                 ]);
-                $this->flashMessage('The item has been created without image.', 'success');
+                $this->flashMessage('Příspěvek se nahrál bez obrázku.', 'success');
             }
         }
 
@@ -110,6 +111,22 @@ final class EditPresenter extends Nette\Application\UI\Presenter
         $this->getComponent('postForm')
             ->setDefaults($post->toArray());
     }
+
+    public function actionDelete(int $id): void
+    {
+        $post = $this->database->table('posts')->get($id);
+    
+        if (!$post instanceof ActiveRow) {
+            $this->error('Post not found');
+        }
+    
+        $post->delete();
+    
+        $this->flashMessage('Příspěvek byl úspěšně smazán', 'success');
+    
+        $this->redirect('Homepage:');
+    }
+    
 
     protected function startup(): void
     {

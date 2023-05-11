@@ -5,20 +5,38 @@ body {
   color: #333;
   background-color: #f7f7f7;
 }
+.header__subtitle {
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-align: center;
+  padding: 1rem;
+  background: linear-gradient(to bottom, #55ff06, #03a80e);
+  color: #fff;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+
 
 /* header styles */
 .header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background-color: #444;
+  background-color: #333;
   padding: 1rem;
 }
 
+.header__container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
 .header__title {
-  font-size: 3rem;
+  color: #06ff3c;
+  font-size: 2rem;
   margin: 0;
-  color: #51ff1c;
 }
 
 .header__user {
@@ -27,34 +45,42 @@ body {
 }
 
 .header__user-greeting {
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   margin-right: 1rem;
   color: #fff;
 }
 
 .header__login,
 .header__logout {
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   margin-left: 1rem;
   color: #fff;
   text-decoration: none;
   transition: all 0.3s ease;
 }
 
-.header__login:hover,
-.header__logout:hover {
-  color: #51ff1c;
+@media only screen and (max-width: 900px) {
+  .header__container {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .header__user-greeting {
+    font-size: 1rem;
+    margin-right: 1rem;
+    color: #fff;
+  }
+  .header__user {
+  margin-left: 10%;
+  }
+  .header__login,
+.header__logout {
+  font-size: 1rem;
+  margin-left: 1rem;
+  color: #fff;
+  text-decoration: none;
+  transition: all 0.3s ease;
 }
-.header__subtitle {
-  font-size: 24px;
-  font-weight: bold;
-  text-align: center;
-  color: #3c8600;
-  margin: 0 auto;
-  padding: 20px;
-  background-color: #f5f5f5;
-  border-radius: 10px;
-  box-shadow: 2px 2px 5px #ccc;
 }
 
 
@@ -72,10 +98,13 @@ body {
 
 
 .all{
-background-image: url('	https://t4.ftcdn.net/jpg/04/82/41/77/360_F_482417756_vTgJaKF7Zmlc4O8SSJ6o2GDQ9QJsHLms.jpg');
+background-image: url('https://t4.ftcdn.net/jpg/04/82/41/77/360_F_482417756_vTgJaKF7Zmlc4O8SSJ6o2GDQ9QJsHLms.jpg');
 background-size: cover;
 background-position: center center;
 background-attachment: fixed;
+}
+.nav-link {
+  min-width: 100px;
 }
 
 nav ul {

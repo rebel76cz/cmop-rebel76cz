@@ -5,6 +5,7 @@
     <title>ŠkodaRada</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
+<body>
 <div class="container">
   <div class="row">
     <div class="col-md-8 mx-auto">
@@ -16,6 +17,11 @@
    {foreach $paragraphs = explode("\n", $post->content) as $paragraph}<p>{$paragraph}</p>
 {/foreach}
   </div>
+  <div>
+        {if $user->isLoggedIn()}
+            <a class="delete" n:href="delete! $post->id">Smazat příspěvek</a>
+        {/if}
+    </div>
   <h2 class="my-4">Vložte nový komentář</h2>
   <div class="mb-4">
     {control commentForm}
@@ -47,7 +53,23 @@
   </div>
 </div>
 </div>
+</body>
 <style>
+a.delete {
+  display: inline-block;
+  background-color: #dc3545;
+  color: #fff;
+  padding: 8px 16px;
+  border-radius: 4px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+a.delete:hover {
+  background-color: #c82333;
+  color: #fff;
+  text-decoration: none;
+}
 
   .btn-success {
     background-color: blue;
@@ -58,7 +80,13 @@
     background-color:blue;
     border-color: #1e7e34;
   }
-
+body {
+    background-image: url('https://t4.ftcdn.net/jpg/04/82/41/77/360_F_482417756_vTgJaKF7Zmlc4O8SSJ6o2GDQ9QJsHLms.jpg');
+    background-size: cover;
+    background-position: center center;
+    background-attachment: fixed;
+    font-family: sans-serif;
+  }
   .btn-success:focus {
     box-shadow: none;
   }
